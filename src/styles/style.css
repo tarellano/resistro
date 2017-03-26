@@ -1,0 +1,15 @@
+.rectangle {
+  display: inline-block;
+  width: 100px;
+  height: 300px;
+}
+
+.resistor {
+  display: flex;
+  justify-content: center;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
