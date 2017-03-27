@@ -1,11 +1,13 @@
 import React from 'react'
 
 export default class ColorStrip extends React.Component {
-  render() {
 
-    const color = this.props.color;
+  render() {
+    const { id, type } = this.props;
+    var className = type === 'tolerance' ? 'tolerance' : 'rectangle';
+
     return (
-      <div class="rectangle" style={ {background: color} } />
+      <div class={className} id={id} />
     )
   }
 }

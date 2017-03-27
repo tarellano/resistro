@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM	from 'react-dom';
-import ColorStrip from './js/page/components/color-strip';
-import Resistor from './js/page/components/resistor';
+import { Provider } from 'react-redux';
+import store from './js/store';
 
-import Timer from './js/components/timer';
+import App from './js/page/app';
 
 ReactDOM.render(
-  <div>
-    <Resistor />
-  </div>,
-  document.getElementById("app")
+  <Provider store={store}>
+    <App/>
+  </Provider>,
+  document.getElementById('root')
 );
