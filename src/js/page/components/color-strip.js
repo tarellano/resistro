@@ -1,11 +1,16 @@
 import React from 'react'
 
 export default class ColorStrip extends React.Component {
-  render() {
 
-    const color = this.props.color;
+  handleScroll(event) {
+    console.log(event);
+  }
+
+  render() {
+    const { color } = this.props;
+
     return (
-      <div class="rectangle" style={ {background: color} } />
+      <div onMouseWheel={ this.handleScroll } class="rectangle" style={ {background: color} } />
     )
   }
 }
