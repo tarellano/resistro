@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM	from 'react-dom';
 
-import Main from './js/page/main';
+import { Provider } from 'react-redux';
+import store from './js/store';
 
-import Timer from './js/components/timer';
+import App from './js/page/app';
 
 ReactDOM.render(
-    <Main/>,
-  document.getElementById("app")
+  <Provider store={store}>
+    <App/>
+  </Provider>,
+  document.getElementById('root')
 );

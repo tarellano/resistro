@@ -10,12 +10,16 @@ export default class Resistor extends React.Component {
   //   });
   // }
   render() {
+    var style = {
+      opacity: this.props.opacity
+    };
+
     return (
-      <div class="resistor">
-        <ColorStrip color="red" />
-        <ColorStrip color="blue" />
-        <ColorStrip color="black" />
-        <ColorStrip color="yellow" />
+      <div class="resistor" style={style}>
+        <ColorStrip color={this.props.colorCode['1']}/>
+        <ColorStrip color={this.props.colorCode['2']}/>
+        <ColorStrip color={this.props.colorCode['3']}/>
+        <ColorStrip type="tolerance" />
       </div>
     )
   }

@@ -1,21 +1,16 @@
 import React from 'react';
 import * as actions from './action-const';
 
-export function readyTimer(){
+export function findColor(colorCode) {
 	return {
-		type: actions.timer_press		
-	};
-}
+		type: actions.findColor,
+		colorCode: colorCode
+	}
+};
 
-export function startTimer(){
-	return {
-		type: actions.timer_start	
-	};
-}
-
-export function stopTimer(time){
-	return {
-		type: actions.timer_stop,
-		time: time		
-	};	
+export function findColorError(error) {
+  return {
+    type: actions.findColorError,
+    error: error
+  }
 }
