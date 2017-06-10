@@ -10,15 +10,30 @@ export default class ColorInput extends React.Component {
     document.querySelector('.resistor').style.opacity = op;
   }
 
-  calcResistance(e) {
-    var colorCode = {};
-    if (e.target.value.length < 2) {
-      this.dimResistor(INVALID);
-      console.log('Not a valid resistor');
+  updateResistor(e) {
+    if (isNaN(parseInt(e.target.value))) {
+      e.target.value = e.target.value.slice(0, -1);
       return;
     }
 
-    var ohm = e.target.value;
+    this.calcResistance.bind(this, e)()
+    .then(function(colorCode) {
+      this.props.findColor(colorCode);
+    }.bind(this))
+    .catch(function(err) {
+      console.log(err)
+      this.props.findColorError(err);
+    }.bind(this));
+  }
+
+  calcResistance(e) {
+    var colorCode = {};
+    var ohm = e.target.value = parseInt(e.target.value, 10).toString();
+
+    if (ohm.length < 2) {
+      return Promise.reject("Not a valid resistor");
+    }
+
     colorCode['1'] = MAP[ohm[0]];
     ohm = ohm.substring(1);
     colorCode['2'] = MAP[ohm[0]];
@@ -26,27 +41,26 @@ export default class ColorInput extends React.Component {
 
     if (ohm === '') {
       colorCode['3'] = 'black';
-      return;
+      return Promise.resolve(colorCode);
     }
     if (!(ohm in MULT)) {
-      this.dimResistor(INVALID);
-      console.log('Not a valid resistor');
-      return;
+      return Promise.reject("Not a valid resistor");
     }
     colorCode['3'] = MULT[ohm];
-    console.log(colorCode['1'], colorCode['2'], colorCode['3'])
+    return Promise.resolve(colorCode);
 
     var resistors = document.querySelectorAll('.rectangle');
     this.dimResistor(VALID);
     resistors.forEach(function(color, i) {
       color.style.background = colorCode[color.id];
     });
-
   }
+
+
 
   render() {
     return (
-      <input class="colorInput" onChange={this.calcResistance.bind(this)}/>
+      <input class="colorInput" onInput={this.updateResistor.bind(this)}/>
     );
   }
 }

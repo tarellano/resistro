@@ -6,8 +6,8 @@ export default class Main extends React.Component {
   render() {
     return(
       <div>
-        <Resistor />
-        <ColorInput findColor={this.props.findColor}/>
+        <Resistor colorCode={this.props.colorCode} opacity={this.props.opacity}/>
+        <ColorInput findColor={this.props.findColor} findColorError={this.props.findColorError}/>
       </div>
     );
   }

@@ -5,7 +5,7 @@ import promise from 'redux-promise-middleware';
 
 import reducer from './reducers/reducer';
 
-const middleware = applyMiddleware(promise(), thunk, logger()); //logger is just for dev purpose, it logs all the actions in the conosle when they are fired.
+const middleware = applyMiddleware(promise(), thunk); //logger is just for dev purpose, it logs all the actions in the conosle when they are fired.
 
 const store = createStore(reducer, middleware);
 export default store;

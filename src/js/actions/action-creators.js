@@ -7,3 +7,10 @@ export function findColor(colorCode) {
 		colorCode: colorCode
 	}
 };
+
+export function findColorError(error) {
+  return {
+    type: actions.findColorError,
+    error: error
+  }
+}
