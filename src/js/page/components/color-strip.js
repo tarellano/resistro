@@ -8,7 +8,7 @@ export default class ColorStrip extends React.Component {
     };
 
     return (
-      <div class={className} style={style}/>\
+      <div class={className} style={style}/>
     )
   }
 }
