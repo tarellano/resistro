@@ -1,7 +1,21 @@
-.rectangle {
+.band {
   display: inline-block;
   width: 100px;
   height: 300px;
+  position: relative;
+}
+
+.single-color {
+  width: 15px;
+  height: 10px;
+}
+
+.color-picker {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  height: 100px;
+  width: 100px;
 }
 
 .resistor {

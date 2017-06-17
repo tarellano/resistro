@@ -1,14 +1,8 @@
 import React from 'react'
-import ColorStrip from './color-strip';
+import ColorStrip from './color-strip/color-strip';
 // import $ from 'jquery';
 
 export default class Resistor extends React.Component {
-  // constructor() {
-  //   super()
-  //   $('ColorStrip').scroll(function(event) {
-  //     console.log(event);
-  //   });
-  // }
   render() {
     var style = {
       opacity: this.props.opacity

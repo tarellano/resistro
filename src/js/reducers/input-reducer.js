@@ -6,7 +6,7 @@ const initialState = {
     '2': 'black',
     '3': 'red'
   },
-  opacity: 1,
+  opacity: 0.5,
   error: null,
   fetched: false
 }

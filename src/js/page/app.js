@@ -4,8 +4,6 @@
 
     import Main from './main';
 
-    //App.js is used to map the States and Dispatch actions as props so that we can simply call this.props.(state or action) within another componenet
-
     function mapStateToProps(state) {
       return {
         colorCode: state.inputReducer.colorCode,
