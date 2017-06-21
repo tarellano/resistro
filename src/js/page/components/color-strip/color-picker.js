@@ -6,14 +6,21 @@ import { MAP, MULT, TOLERANCE } from '../color-input/color-map';
 export default class ColorPicker extends React.Component {
   render() {
     const colors = [];
-    const colorMap = _.invert(MAP);
-    const width = Math.ceil(Object.keys(colorMap).length / 2)*25 + 50 + 'px';
+    var colorMap = {};
+    if (this.props.type === 'multiplier') {
+      colorMap = _.invert(MULT);
+    } else if (this.props.type === 'tolerance') {
+      colorMap = _.invert(TOLERANCE);
+    } else {
+      colorMap = _.invert(MAP);
+    }
+    const width = Math.ceil(Object.keys(colorMap).length / 2)*25 + 45 + 'px';
     const style = {
       width: width,
       left: (parseInt(this.props.pageX) - (width / 2)).toString() + 'px',
       top: (parseInt(this.props.pageY) - 55).toString() + 'px'
     };
-    for(var key in colorMap) {
+    for (var key in colorMap) {
       colors.push(
           <SingleColor color={key} key={colorMap[key]} handleSingle={this.props.handleSingle}/>); 
     }
@@ -30,8 +37,17 @@ class SingleColor extends React.Component {
     const style = {
       background: this.props.color
     }
+    var className;
+    if (this.props.color === 'gold' ||
+        this.props.color === 'silver' ||
+        this.props.color === 'none') {
+      className = 'single-color ' + this.props.color;
+    } else {
+      className = 'single-color';
+    }
+      
     return (
-      <div class='single-color' data-state={this.props.color} onClick={this.props.handleSingle}
+      <div class={className} data-state={this.props.color} onClick={this.props.handleSingle}
         style={style}> 
       </div>
     );

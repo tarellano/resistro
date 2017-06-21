@@ -8,7 +8,8 @@
       return {
         colorCode: state.colorCode,
         opacity: state.opacity,
-        value: state.value
+        value: state.value,
+        tolerance: state.tolerance
       }
     }
 

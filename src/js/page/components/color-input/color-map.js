@@ -23,17 +23,19 @@ var MULT = {
 };
 
 var TOLERANCE = {
+  '0.05%': 'grey',
+  '0.1%': 'violet',
+  '0.25%': 'blue',
+  '0.5%': 'green',
   '1%': 'brown',
   '2%': 'red',
-  '0.5%': 'green',
-  '0.25%': 'blue',
-  '0.1%': 'violet',
-  '0.05%': 'grey',
   '5%': 'gold',
   '10%': 'silver',
   '20%': 'none'
 };
+
 module.exports = {
   MAP,
-  MULT
+  MULT,
+  TOLERANCE
 };

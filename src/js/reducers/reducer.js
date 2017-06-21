@@ -9,12 +9,14 @@ const initialState = {
   opacity: 1,
   value: '1000',
   error: null,
+  tolerance: '5%'
 }
 
 function reducer(state=initialState, action) {
   switch (action.type) {
     case actionConst.findColor: {
       return {
+        ...state,
         error: null,
         opacity: 1,
         value: action.value,
@@ -27,14 +29,22 @@ function reducer(state=initialState, action) {
         opacity: 0.5,
         value: action.value,
         error: action.error
-      }
+      };
     }
     case actionConst.solveColor: {
       return {
+        ...state,
         error: null,
         opacity: 1,
         value: action.value,
         colorCode: action.colorCode
+      }
+    }
+    case actionConst.solveTolerance: {
+      return {
+        ...state,
+        error: null,
+        tolerance: action.tolerance 
       }
     }
     default: {

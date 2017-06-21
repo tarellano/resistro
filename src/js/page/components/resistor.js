@@ -28,7 +28,8 @@ export default class Resistor extends React.Component {
             solveColor={this.props.solveColor}/>
         </div>
         <div class='resistor-end'>
-          <ColorStrip color={'goldenrod'} solveColor={this.props.solveColor} type="tolerance" />
+          <ColorStrip color={'goldenrod'}
+            solveTolerance={this.props.solveTolerance} type="tolerance" />
         </div>
         <div class='pin pin-right'></div>
       </div>

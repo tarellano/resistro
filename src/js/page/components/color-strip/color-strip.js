@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import ColorPicker from './color-picker';
-import { MAP, MULT } from '../color-input/color-map';
+import { MAP, MULT, TOLERANCE } from '../color-input/color-map';
 
 export default class ColorStrip extends React.Component {
   constructor() {
@@ -34,9 +34,17 @@ export default class ColorStrip extends React.Component {
   }
  
   handleSingle(e) {
+    var bandEl = e.target.parentElement.parentElement;
+    if (bandEl.dataset.value === 'tolerance') {
+      var toleranceMap = _.invert(TOLERANCE); 
+      const color = bandEl.style.background = e.target.dataset.state;
+      this.props.solveTolerance(toleranceMap[color]); 
+      this.setState({ colorPickerActive: false });
+      return;
+    }
     const colorMap = _.invert(MAP);
     const colorMult = _.invert(MULT);
-    e.target.parentElement.parentElement.style.background = e.target.dataset.state;
+    bandEl.style.background = e.target.dataset.state;
     this.setState({ colorPickerActive: false });
     var resistors = document.querySelectorAll('.band-main');
     var value = '';
@@ -66,7 +74,7 @@ export default class ColorStrip extends React.Component {
     }
 
     return (
-      <div class={className} style={style}>
+      <div class={className} style={style} data-value={this.props.type}>
         {colorPicker}
       </div>
     );
