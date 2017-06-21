@@ -6,8 +6,9 @@
 
     function mapStateToProps(state) {
       return {
-        colorCode: state.inputReducer.colorCode,
-        opacity: state.inputReducer.opacity
+        colorCode: state.colorCode,
+        opacity: state.opacity,
+        value: state.value
       }
     }
 
