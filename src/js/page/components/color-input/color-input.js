@@ -16,9 +16,21 @@ export default class ColorInput extends React.Component {
     }
   }
 
+  multiplyValue(input, multiplier) {
+    input = input.slice(0, -1);
+    input = (parseFloat(input) * multiplier).toString();
+    return input;
+  }
+
   updateResistor(e) {
     var node = ReactDOM.findDOMNode(this);
-    var start = node.selectionStart, end = node.selectionEnd;
+    var lastInput = e.target.value[e.target.value.length - 1];
+    if (lastInput === 'k' || lastInput === 'K') {
+      e.target.value = this.multiplyValue(e.target.value, 1000);
+    } else if (lastInput == 'M') {
+      e.target.value = this.multiplyValue(e.target.value, 1000000);
+    }
+
     if (isNaN(e.target.value)) {
       e.target.value = e.target.value.slice(0, -1);
       return;
@@ -35,7 +47,7 @@ export default class ColorInput extends React.Component {
 
   calcResistance(e) {
     var colorCode = {};
-    var testVal = parseInt(e.target.value, 10).toString();
+    var testVal = parseFloat(e.target.value, 10).toString();
     const inputVal = testVal == 'NaN' ? '' : testVal;
     if (inputVal === '') {
       return Promise.reject({err: 'Not a valid resistor', value: inputVal});
@@ -59,7 +71,7 @@ export default class ColorInput extends React.Component {
 
   render() {
     const choppedValue = this.props.value === '' ? '' : 
-      parseInt(this.props.value, 10).toString();
+      parseFloat(this.props.value, 10).toString();
 		const size = choppedValue === '' ? 1 : choppedValue.length + 1;
     return (
       <input class='color-input' 
