@@ -38,16 +38,17 @@ export default class ColorPicker extends React.Component {
 
 class SingleColor extends React.Component {
   render() {
-    const style = {
-      background: this.props.color
-    }
     var className;
+    var style = null;
     if (this.props.color === 'gold' ||
         this.props.color === 'silver' ||
         this.props.color === 'none') {
       className = 'single-color ' + this.props.color;
     } else {
       className = 'single-color';
+      style = {
+        background: this.props.color
+      };
     }
       
     return (
