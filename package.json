@@ -29,7 +29,8 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot --port 8000"
+    "start": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot --port 8000",
+    "build": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
