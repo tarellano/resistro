@@ -47,12 +47,27 @@ export default class ColorStrip extends React.Component {
     bandEl.style.background = e.target.dataset.state;
     this.setState({ colorPickerActive: false });
     var resistors = document.querySelectorAll('.band-main');
-    var value = '';
+    var values = [];
     var colorCode = {};
     resistors.forEach((resistor, i) => {
       var bandColor = colorCode[i + 1] = resistor.style.background;
-      value += i === 2 ? colorMult[bandColor] : colorMap[bandColor];
+      var multVal;
+      if (bandColor === 'silver' || bandColor === 'gold') {
+        multVal = bandColor;
+      } else {
+        multVal = colorMult[bandColor];
+      }
+      values.push(i === 2 ? multVal : colorMap[bandColor]);
     });
+    var value = '';
+    if (values[2] === 'silver' || values[2] === 'gold') {
+      var divider = values[2] === 'silver' ? 100 : 10;
+      value = (parseFloat(values[0] + values[1]) / parseFloat(divider));
+      console.log(value);
+    } else {
+      value = values[0] + values[1] + values[2];
+    }
+
     this.props.solveColor({colorCode: colorCode, value: value});
   }
 
@@ -64,6 +79,7 @@ export default class ColorStrip extends React.Component {
     const style = {
       background: this.props.color
     };
+
     var className;
     if (this.props.type === 'multiplier') {
       className = 'band band-main multiplier'; 

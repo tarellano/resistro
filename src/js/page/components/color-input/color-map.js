@@ -11,6 +11,17 @@ var MAP = {
   '9': 'white'
 };
 
+var COLOR_MULT = {
+  '0': 'black',
+  '1': 'saddlebrown',
+  '2': 'red',
+  '3': 'orange',
+  '4': 'yellow',
+  '5': 'forestgreen',
+  '6': 'blue',
+  '7': 'blueviolet'
+};
+
 var MULT = {
   '': 'black',
   '0': 'saddlebrown',
@@ -36,6 +47,7 @@ var TOLERANCE = {
 
 module.exports = {
   MAP,
+  COLOR_MULT,
   MULT,
   TOLERANCE
 };
