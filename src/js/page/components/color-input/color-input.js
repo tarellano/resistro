@@ -72,11 +72,13 @@ export default class ColorInput extends React.Component {
   render() {
     const choppedValue = this.props.value === '' ? '' : 
       parseFloat(this.props.value, 10).toString();
-		const size = choppedValue === '' ? 1 : choppedValue.length + 1;
+    const style = {
+      width: 24.25 * choppedValue.length + 10 + 'px'
+    }
     return (
       <input class='color-input' 
         onInput={this.updateResistor.bind(this)} onChange={function(){}} 
-        value={choppedValue} maxLength='9' size={size}/>
+        value={choppedValue} maxLength='9' style={style}/>
     );
   }
 }
