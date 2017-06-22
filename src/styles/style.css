@@ -1,8 +1,9 @@
 .band {
   display: inline-block;
   width: 30px;
-  height: 118px;
-}
+  height: 120px;
+  cursor: pointer;
+} 
 
 div {
   user-select: none;
@@ -95,7 +96,7 @@ div {
 
 .resistor-end .band {
   display: flex;
-  height: 148px;
+  height: 150px;
 }
 
 .resistor-mid {
