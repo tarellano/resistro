@@ -17,10 +17,11 @@ export function findColorError(data) {
   }
 };
 
-export function solveTolerance(tolerance) {
+export function solveTolerance(data) {
   return {
     type: actions.solveTolerance,
-    tolerance: tolerance
+    tolerance: data.tolerance,
+    colorTolerance: data.colorTolerance 
   }
 }
 

@@ -35,22 +35,25 @@ export default class ColorStrip extends React.Component {
  
   handleSingle(e) {
     var bandEl = e.target.parentElement.parentElement;
+    var colorPicked = e.target.dataset.state;
+    bandEl.dataset.color = colorPicked;
     if (bandEl.dataset.value === 'tolerance') {
       var toleranceMap = _.invert(TOLERANCE); 
-      const color = bandEl.style.background = e.target.dataset.state;
-      this.props.solveTolerance(toleranceMap[color]); 
+      this.props.solveTolerance({
+        tolerance: toleranceMap[colorPicked],
+        colorTolerance: colorPicked
+      }); 
       this.setState({ colorPickerActive: false });
       return;
     }
     const colorMap = _.invert(MAP);
     const colorMult = _.invert(MULT);
-    bandEl.style.background = e.target.dataset.state;
     this.setState({ colorPickerActive: false });
     var resistors = document.querySelectorAll('.band-main');
     var values = [];
     var colorCode = {};
     resistors.forEach((resistor, i) => {
-      var bandColor = colorCode[i + 1] = resistor.style.background;
+      var bandColor = colorCode[i + 1] = resistor.dataset.color;
       var multVal;
       if (bandColor === 'silver' || bandColor === 'gold') {
         multVal = bandColor;
@@ -63,7 +66,6 @@ export default class ColorStrip extends React.Component {
     if (values[2] === 'silver' || values[2] === 'gold') {
       var divider = values[2] === 'silver' ? 100 : 10;
       value = (parseFloat(values[0] + values[1]) / parseFloat(divider));
-      console.log(value);
     } else {
       value = values[0] + values[1] + values[2];
     }
@@ -76,10 +78,6 @@ export default class ColorStrip extends React.Component {
       ? <ColorPicker type={this.props.type} pageX={this.state.pageX} pageY={this.state.pageY}
       handleSingle={this.handleSingle.bind(this)}/> : null;
 
-    const style = {
-      background: this.props.color
-    };
-
     var className;
     if (this.props.type === 'multiplier') {
       className = 'band band-main multiplier'; 
@@ -89,8 +87,17 @@ export default class ColorStrip extends React.Component {
       className = 'band band-main';
     }
 
+    var style = null;
+    if (this.props.color === 'gold' || this.props.color === 'silver') {
+      className += ' ' + this.props.color;
+    } else if (this.props.color === 'none') {
+      className += ' none-strip';
+    } else {
+      style = { background: this.props.color };        
+    }
+
     return (
-      <div class={className} style={style} data-value={this.props.type}>
+      <div class={className} style={style} data-value={this.props.type} data-color={this.props.color}>
         {colorPicker}
       </div>
     );

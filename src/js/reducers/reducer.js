@@ -9,7 +9,8 @@ const initialState = {
   opacity: 1,
   value: '1000',
   error: null,
-  tolerance: '5%'
+  tolerance: '5%',
+  colorTolerance: 'gold'
 }
 
 function reducer(state=initialState, action) {
@@ -44,7 +45,8 @@ function reducer(state=initialState, action) {
       return {
         ...state,
         error: null,
-        tolerance: action.tolerance 
+        tolerance: action.tolerance,
+        colorTolerance: action.colorTolerance
       }
     }
     default: {
