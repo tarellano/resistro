@@ -4,10 +4,6 @@ var path = require('path');
 
 module.exports = {
   devtool: debug ? "inline-sourcemap" : null,
-  // devServer: {
-  //   contentBase: __dirname + "src",
-  //   historyApiFallback: true
-  // },
   entry: "./src/index.js",
   module: {
     loaders: [

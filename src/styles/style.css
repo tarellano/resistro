@@ -60,7 +60,7 @@ div {
 }
 
 .color-input::selection {
-  background: transparent;
+  background: #cce7ff;
 }
 
 .input-container {
