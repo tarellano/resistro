@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot --port 8000",
-    "build": "webpack --config webpack.config.js"
+    "build": "NODE_ENV=production webpack -p"
   },
   "repository": {
     "type": "git",
