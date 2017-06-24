@@ -136,7 +136,9 @@ body {
   align-items: center;
   padding: 0 5px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
+  transition: background 0.1s ease-in-out;
+  position: relative;
+  z-index: 0;
 }
 
 .tolerance::before {
@@ -147,7 +149,7 @@ body {
 }
 
 .tolerance:hover {
-  background: #cce7ff;
+  background-color: #cce7ff;
 }
 
 .none::before {
@@ -160,8 +162,24 @@ body {
 }
 
 .none-strip {
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
+  border-left: 1px solid #ffe1b4;
+  border-right: 1px solid #ffe1b4;
+}
+
+.c-tolerance {
+  padding: 10px 10px 10px 20px;
+  position: absolute;
+  z-index: -1;
+  background: aliceblue;
+  top: -50px;
+}
+
+.single-tolerance {
+  font-size: 15px;
+
+}
+.single-tolerance:hover {
+  background: #cce7ff;
 }
 
 .gold {

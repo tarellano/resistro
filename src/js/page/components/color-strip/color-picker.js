@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import { MAP, COLOR_MULT, MULT, TOLERANCE } from '../color-input/color-map';
+import { MAP, COLOR_MULT, MULT, TOLERANCE } from '../color-map';
 
 export default class ColorPicker extends React.Component {
   render() {

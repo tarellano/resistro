@@ -1,6 +1,7 @@
 import React from 'react';
 import Resistor from './components/resistor';
 import ColorInput from './components/color-input/color-input';
+import ColorTolerance from './components/color-tolerance/color-tolerance.js';
 
 export default class Main extends React.Component {
   render() {
@@ -18,7 +19,9 @@ export default class Main extends React.Component {
             findColor={this.props.findColor}
             findColorError={this.props.findColorError}/>
           <div class='ohm-symbol'>Ω</div>
-          <div class='tolerance'>{this.props.tolerance}</div>
+          <ColorTolerance 
+            val={this.props.tolerance}
+            solveTolerance={this.props.solveTolerance}/>
         </div>
       </div>
     );

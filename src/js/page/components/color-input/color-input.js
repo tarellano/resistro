@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MAP, MULT } from './color-map';
+import { MAP, MULT } from '../color-map';
 import ColorStrip from '../color-strip/color-strip.js';
 
 export default class ColorInput extends React.Component {
@@ -12,6 +12,7 @@ export default class ColorInput extends React.Component {
 
   focusOnInput(e) {
     if (!this.el.contains(e.target)) {
+      this.el.value = this.el.value;
       this.el.focus();
     }
   }

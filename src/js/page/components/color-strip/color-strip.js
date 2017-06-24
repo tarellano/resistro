@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import ColorPicker from './color-picker';
-import { MAP, MULT, TOLERANCE } from '../color-input/color-map';
+import { MAP, MULT, TOLERANCE } from '../color-map';
 
 export default class ColorStrip extends React.Component {
   constructor() {
