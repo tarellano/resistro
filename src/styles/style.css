@@ -41,7 +41,7 @@ div {
 
 .resistor {
   display: flex;
-  margin: 25vh 0 13vh 0;
+  margin: 28vh 0 15vh 0;
   justify-content: center;
   align-items: center;
 }
@@ -156,8 +156,8 @@ body {
   content: '\274c';
   font-size: 10px;
   position: relative;
-  top: 3px;
-  left: 6px;
+  top: 2px;
+  left: 7px;
   color: red;
 }
 
@@ -167,15 +167,14 @@ body {
 }
 
 .c-tolerance {
-  padding: 10px 10px 10px 20px;
   position: absolute;
   z-index: -1;
   background: aliceblue;
-  top: -50px;
+  top: -66.5px;
 }
 
 .single-tolerance {
-  font-size: 15px;
+  font-size: 18px;
 
 }
 .single-tolerance:hover {

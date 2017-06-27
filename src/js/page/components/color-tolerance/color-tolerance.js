@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { TOLERANCE } from '../color-map';
 import ToleranceComponent from './tolerance-component';
 
@@ -7,17 +8,30 @@ export default class ColorTolerance extends React.Component {
     super();
     this.state = { componentActive: false };
   }
+
+  componentWillMount() {
+    document.addEventListener('click', this.checkTarget.bind(this), false);
+  }   
  
-  mouseEnter(e) {
-    this.setState({ componentActive: true });
+  checkTarget(e) {
+    const target = ReactDOM.findDOMNode(this);
+    if (!target.contains(e.target)) {
+      this.setState({ componentActive: false });
+    }
+
   }
 
-  mouseLeave(e) {
-    this.setState({ componentActive: true});
+  switchState(state, e) {
+    if (e.target != ReactDOM.findDOMNode(this) && state == true) {
+      return;
+    }
+    this.setState({ componentActive: state });
   }
 
   handleSingle(e) {
-    
+    this.setState({ componentActive: false });
+    this.props.solveTolerance({tolerance: e.target.dataset.value,
+      colorTolerance: TOLERANCE[e.target.dataset.value]});
   }
 
   render() {
@@ -37,15 +51,15 @@ export default class ColorTolerance extends React.Component {
           delete values[key];
         }
       }
-      left = left - 20 + 'px'; // convert int to to string
+      left = left + 'px'; // convert int to to string
       toleranceComponent = <ToleranceComponent values={values}
-        handleSingle={this.handleSingle.bind(this)} left={left}/>; 
+        handleSingle={this.handleSingle.bind(this)} left={left}
+        switchState={this.switchState.bind(this)}/>; 
     }
 
     return (
       <div class='tolerance' 
-        onMouseEnter={this.mouseEnter.bind(this)} 
-        onMouseLeave={this.mouseLeave.bind(this)}>
+        onClick={this.switchState.bind(this, true)}> 
         {this.props.val}
         {toleranceComponent}
       </div>

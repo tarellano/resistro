@@ -2,6 +2,7 @@ import React from 'react';
 import { TOLERANCE } from '../color-map';
 
 export default class ToleranceComponent extends React.Component {
+
   render() {
     var singles = [];
     var counter = 0;
