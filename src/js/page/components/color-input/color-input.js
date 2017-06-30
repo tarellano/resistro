@@ -74,7 +74,7 @@ export default class ColorInput extends React.Component {
     const choppedValue = this.props.value === '' ? '' : 
       parseFloat(this.props.value, 10).toString();
     const style = {
-      width: 24.25 * choppedValue.length + 10 + 'px'
+      width: 24.25 * choppedValue.length + 20 + 'px'
     }
     return (
       <input class='color-input' 

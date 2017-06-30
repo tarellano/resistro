@@ -3,6 +3,7 @@
   width: 30px;
   height: 120px;
   cursor: pointer;
+  transition: background 0.4s ease-in-out;
 } 
 
 div {
@@ -44,6 +45,7 @@ div {
   margin: 28vh 0 15vh 0;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .color-input {
@@ -192,3 +194,4 @@ body {
   background: -webkit-linear-gradient(-45deg, rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(135deg, rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
+

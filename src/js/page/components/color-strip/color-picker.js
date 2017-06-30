@@ -52,7 +52,8 @@ class SingleColor extends React.Component {
     }
       
     return (
-      <div class={className} data-state={this.props.color} onClick={this.props.handleSingle}
+      <div class={className} data-state={this.props.color} 
+        onClick={this.props.handleSingle}
         style={style}> 
       </div>
     );
