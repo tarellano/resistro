@@ -30,9 +30,18 @@ export default class ColorStrip extends React.Component {
       });
       return;
     }
+    if (this.state.colorPickerActive) {
+      this.props.revertState();
+    }
     this.setState({colorPickerActive: false});
   }
- 
+  
+  removeColorPicker(e) {
+    if (e.type != 'mouseenter') {
+      this.setState({colorPickerActive: false});
+    }
+  }
+
   handleSingle(e) {
     var bandEl = e.target.parentElement.parentElement;
     var colorPicked = e.target.dataset.state;
@@ -40,15 +49,16 @@ export default class ColorStrip extends React.Component {
     if (bandEl.dataset.value === 'tolerance') {
       var toleranceMap = _.invert(TOLERANCE); 
       this.props.solveTolerance({
+        eventType: e.type,
         tolerance: toleranceMap[colorPicked],
         colorTolerance: colorPicked
       }); 
-      this.setState({ colorPickerActive: false });
+      this.removeColorPicker(e);
       return;
     }
     const colorMap = _.invert(MAP);
     const colorMult = _.invert(MULT);
-    this.setState({ colorPickerActive: false });
+    this.removeColorPicker(e);
     var resistors = document.querySelectorAll('.band-main');
     var values = [];
     var colorCode = {};
@@ -70,13 +80,13 @@ export default class ColorStrip extends React.Component {
       value = values[0] + values[1] + values[2];
     }
 
-    this.props.solveColor({colorCode: colorCode, value: value});
+    this.props.solveColor({eventType: e.type, colorCode: colorCode, value: value});
   }
 
   render() {
     const colorPicker = this.state.colorPickerActive
       ? <ColorPicker type={this.props.type} pageX={this.state.pageX} pageY={this.state.pageY}
-      handleSingle={this.handleSingle.bind(this)}/> : null;
+      handleSingle={this.handleSingle.bind(this)} revertState={this.props.revertState}/> : null;
 
     var className;
     if (this.props.type === 'multiplier') {
@@ -93,7 +103,7 @@ export default class ColorStrip extends React.Component {
     } else if (this.props.color === 'none') {
       className += ' none-strip';
     } else {
-      style = { background: this.props.color };        
+      style = {background: this.props.color};        
     }
 
     return (

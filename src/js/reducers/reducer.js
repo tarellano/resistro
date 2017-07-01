@@ -13,16 +13,19 @@ const initialState = {
   colorTolerance: 'gold'
 }
 
+var holdState = initialState;
+
 function reducer(state=initialState, action) {
   switch (action.type) {
     case actionConst.findColor: {
-      return {
+      var newState = holdState = {
         ...state,
         error: null,
         opacity: 1,
         value: action.value,
         colorCode: action.colorCode
       };
+      return newState;
     }
     case actionConst.findColorError: {
       return {
@@ -33,21 +36,32 @@ function reducer(state=initialState, action) {
       };
     }
     case actionConst.solveColor: {
-      return {
+      var newState = {
         ...state,
         error: null,
         opacity: 1,
         value: action.value,
         colorCode: action.colorCode
       }
+      if (action.eventType != 'mouseenter') {
+        holdState = newState;
+      }
+      return newState;
     }
     case actionConst.solveTolerance: {
-      return {
+      var newState = {
         ...state,
         error: null,
         tolerance: action.tolerance,
         colorTolerance: action.colorTolerance
       }
+      if (action.eventType != 'mouseenter') {
+        holdState = newState;
+      }
+      return newState;
+    }
+    case actionConst.revertState: {
+      return holdState;
     }
     default: {
       return state;

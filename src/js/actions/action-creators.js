@@ -20,6 +20,7 @@ export function findColorError(data) {
 export function solveTolerance(data) {
   return {
     type: actions.solveTolerance,
+    eventType: data.eventType,
     tolerance: data.tolerance,
     colorTolerance: data.colorTolerance 
   }
@@ -28,8 +29,15 @@ export function solveTolerance(data) {
 export function solveColor(data) {
   return {
     type: actions.solveColor,
+    eventType: data.eventType,
     colorCode: data.colorCode,
     value: data.value,
     tolerance: data.tolerance
+  }
+};
+
+export function revertState() {
+  return {
+    type: actions.revertState
   }
 };

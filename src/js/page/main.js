@@ -8,6 +8,7 @@ export default class Main extends React.Component {
     return(
       <div>
         <Resistor
+          revertState={this.props.revertState}
           colorTolerance={this.props.colorTolerance}
           solveTolerance={this.props.solveTolerance}
           solveColor={this.props.solveColor}
