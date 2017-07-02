@@ -28,7 +28,6 @@ div {
 
 .color-picker {
   background: white;
-  opacity: 0;
   transition: background 0.4s ease-in-out;
   display: flex;
   z-index: 1;
@@ -160,9 +159,11 @@ body {
   content: '\274c';
   font-size: 10px;
   position: relative;
-  top: 2px;
-  left: 7px;
+  top: 0.5px;
+  left: 7.5px;
   color: red;
+  display: flex;
+  align-self: center;
 }
 
 .none-strip {
