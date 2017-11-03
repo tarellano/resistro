@@ -4,13 +4,17 @@ import { MAP, MULT } from '../color-map';
 import ColorStrip from '../color-strip/color-strip.js';
 
 export default class ColorInput extends React.Component {
+  //As soon as the webpage loads
   componentDidMount() {
     this.el = ReactDOM.findDOMNode(this);
+    //Make the input element editable right off the start 
     this.el.focus(); 
+    //This is to always have focus on input element
     document.addEventListener('click', this.focusOnInput.bind(this), false);
   }
 
   focusOnInput(e) {
+    // if clicked outside of input element, focus on the input
     if (!this.el.contains(e.target)) {
       this.el.value = this.el.value;
       this.el.focus();
@@ -25,13 +29,17 @@ export default class ColorInput extends React.Component {
 
   updateResistor(e) {
     var node = ReactDOM.findDOMNode(this);
+    // this is the character that was just entered by the user
     var lastInput = e.target.value[e.target.value.length - 1];
+
+    // handling multipler prefix symbols 
     if (lastInput === 'k' || lastInput === 'K') {
       e.target.value = this.multiplyValue(e.target.value, 1000);
     } else if (lastInput == 'M') {
       e.target.value = this.multiplyValue(e.target.value, 1000000);
     }
 
+    // Only handle numbers (This creates issue with decimal)
     if (isNaN(e.target.value)) {
       e.target.value = e.target.value.slice(0, -1);
       return;

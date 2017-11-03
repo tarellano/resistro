@@ -1,5 +1,8 @@
 import React from 'react';
 import * as actions from './action-const';
+/*  
+ *  Actions are for pipelining the data states between reducers and the webapp
+ */
 
 export function findColor(data) {
 	return {
