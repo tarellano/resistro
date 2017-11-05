@@ -21,8 +21,8 @@ function reducer(state=initialState, action) {
       var newState = holdState = {
         ...state,
         error: null,
+        value: null,
         opacity: 1,
-        value: action.value,
         colorCode: action.colorCode
       };
       return newState;
@@ -31,8 +31,8 @@ function reducer(state=initialState, action) {
       return {
         ...state,
         opacity: 0.5,
-        value: action.value,
-        error: action.error
+        error: action.error,
+        value: null
       };
     }
     case actionConst.solveColor: {
@@ -43,7 +43,7 @@ function reducer(state=initialState, action) {
         value: action.value,
         colorCode: action.colorCode
       }
-      if (action.eventType != 'mouseenter') {
+      if (action.eventType == 'click') {
         holdState = newState;
       }
       return newState;
@@ -55,7 +55,7 @@ function reducer(state=initialState, action) {
         tolerance: action.tolerance,
         colorTolerance: action.colorTolerance
       }
-      if (action.eventType != 'mouseenter') {
+      if (action.eventType == 'click') {
         holdState = newState;
       }
       return newState;
