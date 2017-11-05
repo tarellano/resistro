@@ -4,7 +4,12 @@ import { MAP, MULT } from '../color-map';
 import ColorStrip from '../color-strip/color-strip.js';
 
 export default class ColorInput extends React.Component {
-  //As soon as the webpage loads
+  //Right before the component loads
+  componentWillmount() {
+    this.state = {valueLength: 4};
+  }
+
+  //As soon as the webpage load
   componentDidMount() {
     this.el = ReactDOM.findDOMNode(this);
     //Make the input element editable right off the start 
@@ -29,29 +34,33 @@ export default class ColorInput extends React.Component {
 
   updateResistor(e) {
     var node = ReactDOM.findDOMNode(this);
-    // this is the character that was just entered by the user
-    var lastInput = e.target.value[e.target.value.length - 1];
-
-    // handling multipler prefix symbols 
-    if (lastInput === 'k' || lastInput === 'K') {
-      e.target.value = this.multiplyValue(e.target.value, 1000);
-    } else if (lastInput == 'M') {
-      e.target.value = this.multiplyValue(e.target.value, 1000000);
+    var inputEl = e.target;
+    var decimalCount = 0;
+    for (var i = 0; i < inputEl.value.length; i++) {
+      if (inputEl.value[i] === '.') {
+        decimalCount++;
+      }
+      if (inputEl.value.length > 1 && i === inputEl.value.length - 1) {
+        if (inputEl.value[i] === 'k' || inputEl.value[i] === 'K') {
+          e.target.value = this.multiplyValue(e.target.value, 1000);
+        } else if (inputEl.value[i] == 'M') {
+          e.target.value = this.multiplyValue(e.target.value, 1000000);
+        }
+      }
+      if ((isNaN(parseInt(inputEl.value[i])) && inputEl.value[i] !== '.')
+          || (inputEl.value[i] === '.' && decimalCount > 1)) {
+        inputEl.value = inputEl.value.slice(0, i) + inputEl.value.slice(i + 1, inputEl.value.length);
+      }
     }
 
-    // Only handle numbers (This creates issue with decimal)
-    if (isNaN(e.target.value)) {
-      e.target.value = e.target.value.slice(0, -1);
-      return;
-    }
+    this.setState({valueLength: e.target.value.length});
 
-    this.calcResistance.bind(this, e)()
-    .then(function(data) {
-      this.props.findColor(data);
-    }.bind(this))
-    .catch(function(data) {
-      this.props.findColorError(data);
-    }.bind(this));
+    var resistance = this.calcResistance.bind(this, e)();
+    if (resistance.err) {
+      this.props.findColorError(resistance);
+    } else {
+      this.props.findColor(resistance);
+    }
   }
 
   calcResistance(e) {
@@ -59,35 +68,62 @@ export default class ColorInput extends React.Component {
     var testVal = parseFloat(e.target.value, 10).toString();
     const inputVal = testVal == 'NaN' ? '' : testVal;
     if (inputVal === '') {
-      return Promise.reject({err: 'Not a valid resistor', value: inputVal});
+      return {err: 'Not a valid resistor'};
     }
-    var ohm = e.target.value = testVal;
+    var ohm = testVal;
+    
+    if (ohm.length == 0 || parseFloat(ohm) === 0) {
+      return {err: 'Not a valid resistor'};
+    }
 
-    if (ohm.length < 2) {
-      return Promise.reject({err: 'Not a valid resistor', value: testVal});
+
+    if (ohm.indexOf('.') + 1) {
+      let decimalCount = 0;
+      var multColor;
+      var secondBandColor;
+      while (ohm.indexOf('.') + 1) {
+        ohm = (parseFloat(ohm, 10) * 10).toString();
+        decimalCount++;
+      }
+      if (decimalCount == 1) {
+        multColor = ohm.length === 1 ? 'silver' : 'gold'; 
+        secondBandColor = ohm.length === 1 ? 'black' : null;
+      } else if (decimalCount == 2) {
+        multColor = 'silver';
+        secondBandColor = ohm.length === 1 ? 'black' : null;
+      }
     }
+
     colorCode['1'] = MAP[ohm[0]];
-    ohm = ohm.substring(1);
-    colorCode['2'] = MAP[ohm[0]];
-    ohm = ohm.substring(1);
+    colorCode['2'] = secondBandColor || (testVal.length === 1 ? 'black' : MAP[ohm[1]]);
+    ohm = ohm.substring(2);
 
     if (!(ohm in MULT)) {
-      return Promise.reject({err: 'Not a valid resistor', value: testVal});
+      return {err: 'Not a valid resistor'};
     }
-    colorCode['3'] = MULT[ohm];
-    return Promise.resolve({colorCode: colorCode, value: e.target.value});
+    colorCode['3'] = multColor || (testVal.length === 1 ? 'gold' : MULT[ohm]);
+    return {colorCode: colorCode};
   }
 
   render() {
-    const choppedValue = this.props.value === '' ? '' : 
-      parseFloat(this.props.value, 10).toString();
     const style = {
-      width: 24.25 * choppedValue.length + 20 + 'px'
+      width: 24.25 * (this.props.value ? this.props.value.length : (this.state ? this.state.valueLength : 4)) 
+        + 20 + 'px'
     }
+
+    var attr = {
+      onInput: this.updateResistor.bind(this),
+      defaultValue: '1000',
+      maxLength: '9',
+      style: style
+    };
+
+    if (this.props.value) {
+      attr.value = this.props.value;
+    }
+
     return (
-      <input class='color-input' 
-        onInput={this.updateResistor.bind(this)} onChange={function(){}} 
-        value={choppedValue} maxLength='9' style={style}/>
+      <input class='color-input' {...attr} />
     );
   }
 }

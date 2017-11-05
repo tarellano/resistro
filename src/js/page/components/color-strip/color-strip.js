@@ -75,7 +75,7 @@ export default class ColorStrip extends React.Component {
     var value = '';
     if (values[2] === 'silver' || values[2] === 'gold') {
       var divider = values[2] === 'silver' ? 100 : 10;
-      value = (parseFloat(values[0] + values[1]) / parseFloat(divider));
+      value = (parseFloat(values[0] + values[1]) / parseFloat(divider)).toString();
     } else {
       value = values[0] + values[1] + values[2];
     }

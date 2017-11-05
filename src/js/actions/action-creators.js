@@ -7,7 +7,6 @@ import * as actions from './action-const';
 export function findColor(data) {
 	return {
 		type: actions.findColor,
-    value: data.value,
 		colorCode: data.colorCode
 	}
 };
@@ -15,8 +14,7 @@ export function findColor(data) {
 export function findColorError(data) {
   return {
     type: actions.findColorError,
-    error: data.error,
-    value: data.value
+    error: data.error
   }
 };
 
