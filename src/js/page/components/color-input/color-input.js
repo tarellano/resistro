@@ -26,36 +26,46 @@ export default class ColorInput extends React.Component {
     }
   }
 
-  multiplyValue(input, multiplier) {
-    input = input.slice(0, -1);
-    input = (parseFloat(input) * multiplier).toString();
-    return input;
-  }
-
   updateResistor(e) {
     var node = ReactDOM.findDOMNode(this);
     var inputEl = e.target;
-    var decimalCount = 0;
-    for (var i = 0; i < inputEl.value.length; i++) {
-      if (inputEl.value[i] === '.') {
-        decimalCount++;
+    var cloneValue = inputEl.value;
+
+    var prefixIndex, decimalIndex;
+    var resistanceValue;
+
+    for (var i = 0; i < cloneValue.length; i++) {
+      var isPrefixCharacter = (['k', 'K', 'M'].indexOf(cloneValue[i]) + 1);
+      if ((isNaN(parseInt(cloneValue[i])) && cloneValue[i] !== '.'
+          && !isPrefixCharacter)
+          || (cloneValue[i] === '.' && decimalIndex) 
+          || (isPrefixCharacter && prefixIndex)
+          || (prefixIndex < i)) {
+        cloneValue = cloneValue.slice(0, i) + cloneValue.slice(i+1, cloneValue.length);
       }
-      if (inputEl.value.length > 1 && i === inputEl.value.length - 1) {
-        if (inputEl.value[i] === 'k' || inputEl.value[i] === 'K') {
-          e.target.value = this.multiplyValue(e.target.value, 1000);
-        } else if (inputEl.value[i] == 'M') {
-          e.target.value = this.multiplyValue(e.target.value, 1000000);
+
+      if (cloneValue[i] === '.') {
+        decimalIndex = i;
+      } else if (isPrefixCharacter) {
+        prefixIndex = i;
+        if (cloneValue[i] === 'k' || cloneValue[i] === 'K') {
+          resistanceValue = (parseFloat(cloneValue) * 1000).toString();
+        } else if (cloneValue[i] === 'M') {
+          resistanceValue = (parseFloat(cloneValue) * 1000000).toString();
         }
-      }
-      if ((isNaN(parseInt(inputEl.value[i])) && inputEl.value[i] !== '.')
-          || (inputEl.value[i] === '.' && decimalCount > 1)) {
-        inputEl.value = inputEl.value.slice(0, i) + inputEl.value.slice(i + 1, inputEl.value.length);
+        if (decimalIndex + 1 === prefixIndex) {
+          cloneValue = cloneValue.slice(0, decimalIndex) + 
+            cloneValue.slice(prefixIndex, prefixIndex + 1);
+        }
       }
     }
 
+    inputEl.value = cloneValue;
+    resistanceValue = resistanceValue || e.target.value;
+
     this.setState({valueLength: e.target.value.length});
 
-    var resistance = this.calcResistance.bind(this, e)();
+    var resistance = this.calcResistance.bind(this, resistanceValue, e)();
     if (resistance.err) {
       this.props.findColorError(resistance);
     } else {
@@ -63,9 +73,9 @@ export default class ColorInput extends React.Component {
     }
   }
 
-  calcResistance(e) {
+  calcResistance(resistanceValue, e) {
     var colorCode = {};
-    var testVal = parseFloat(e.target.value, 10).toString();
+    var testVal = parseFloat(resistanceValue, 10).toString();
     const inputVal = testVal == 'NaN' ? '' : testVal;
     if (inputVal === '') {
       return {err: 'Not a valid resistor'};
