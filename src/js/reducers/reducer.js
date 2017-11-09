@@ -25,15 +25,18 @@ function reducer(state=initialState, action) {
         opacity: 1,
         colorCode: action.colorCode
       };
+      holdState.value = action.inputValue;
       return newState;
     }
     case actionConst.findColorError: {
-      return {
+      var newState = holdState = {
         ...state,
         opacity: 0.5,
         error: action.error,
         value: null
       };
+      holdState.value = action.inputValue;
+      return newState;
     }
     case actionConst.solveColor: {
       var newState = {
