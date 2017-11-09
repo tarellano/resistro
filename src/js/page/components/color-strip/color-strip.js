@@ -8,10 +8,12 @@ export default class ColorStrip extends React.Component {
   constructor() {
     super();
     this.state = { colorPickerActive: false };
+    this.pageClick = this.pageClick.bind(this);
+    this.handleSingle = this.handleSingle.bind(this);
   }
 
   componentWillMount() {
-    document.addEventListener('click', this.pageClick.bind(this), false);
+    document.addEventListener('click', this.pageClick, false);
   }
 
   pageClick(e) {
@@ -86,7 +88,7 @@ export default class ColorStrip extends React.Component {
   render() {
     const colorPicker = this.state.colorPickerActive
       ? <ColorPicker type={this.props.type} pageX={this.state.pageX} pageY={this.state.pageY}
-      handleSingle={this.handleSingle.bind(this)} revertState={this.props.revertState}/> : null;
+      handleSingle={this.handleSingle} revertState={this.props.revertState}/> : null;
 
     var className;
     if (this.props.type === 'multiplier') {

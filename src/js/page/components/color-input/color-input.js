@@ -4,6 +4,14 @@ import { MAP, MULT } from '../color-map';
 import ColorStrip from '../color-strip/color-strip.js';
 
 export default class ColorInput extends React.Component {
+
+  constructor() {
+    super();
+    this.focusOnInput = this.focusOnInput.bind(this);
+    this.updateResistor = this.updateResistor.bind(this);
+    this.calcResistance = this.calcResistance.bind(this);
+  }
+  
   //Right before the component loads
   componentWillmount() {
     this.state = {valueLength: 4};
@@ -15,7 +23,7 @@ export default class ColorInput extends React.Component {
     //Make the input element editable right off the start 
     this.el.focus(); 
     //This is to always have focus on input element
-    document.addEventListener('click', this.focusOnInput.bind(this), false);
+    document.addEventListener('click', this.focusOnInput, false);
   }
 
   focusOnInput(e) {
@@ -65,7 +73,7 @@ export default class ColorInput extends React.Component {
 
     this.setState({valueLength: e.target.value.length});
 
-    var resistance = this.calcResistance.bind(this, resistanceValue, e)();
+    var resistance = this.calcResistance(resistanceValue, e);
     if (resistance.err) {
       this.props.findColorError(resistance);
     } else {
@@ -122,7 +130,7 @@ export default class ColorInput extends React.Component {
     }
 
     var attr = {
-      onInput: this.updateResistor.bind(this),
+      onInput: this.updateResistor,
       defaultValue: '1000',
       maxLength: '9',
       style: style
