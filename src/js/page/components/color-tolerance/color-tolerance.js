@@ -7,10 +7,13 @@ export default class ColorTolerance extends React.Component {
   constructor() {
     super();
     this.state = { componentActive: false };
+    this.checkTarget = this.checkTarget.bind(this);
+    this.handleSingle = this.handleSingle.bind(this);
+    this.switchState = this.switchState.bind(this);
   }
 
   componentWillMount() {
-    document.addEventListener('click', this.checkTarget.bind(this), false);
+    document.addEventListener('click', this.checkTarget, false);
   }   
  
   checkTarget(e) {
@@ -18,7 +21,6 @@ export default class ColorTolerance extends React.Component {
     if (!target.contains(e.target)) {
       this.setState({ componentActive: false });
     }
-
   }
 
   switchState(state, e) {
@@ -53,8 +55,8 @@ export default class ColorTolerance extends React.Component {
       }
       left = left + 'px'; // convert int to to string
       toleranceComponent = <ToleranceComponent values={values}
-        handleSingle={this.handleSingle.bind(this)} left={left}
-        switchState={this.switchState.bind(this)}/>; 
+        handleSingle={this.handleSingle} left={left}
+        switchState={this.switchState}/>; 
     }
 
     return (
