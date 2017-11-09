@@ -74,6 +74,7 @@ export default class ColorInput extends React.Component {
     this.setState({valueLength: e.target.value.length});
 
     var resistance = this.calcResistance(resistanceValue, e);
+    resistance.inputValue = cloneValue;
     if (resistance.err) {
       this.props.findColorError(resistance);
     } else {

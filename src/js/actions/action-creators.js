@@ -5,16 +5,18 @@ import * as actions from './action-const';
  */
 
 export function findColor(data) {
-	return {
-		type: actions.findColor,
-		colorCode: data.colorCode
-	}
+  return {
+    type: actions.findColor,
+    colorCode: data.colorCode,
+    inputValue: data.inputValue
+  }
 };
 
 export function findColorError(data) {
   return {
     type: actions.findColorError,
-    error: data.error
+    error: data.error,
+    inputValue: data.inputValue
   }
 };
 
