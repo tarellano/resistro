@@ -1,0 +1,29 @@
+.color-picker {
+    background: white;
+    transition: background 0.4s ease-in-out;
+    display: flex;
+    z-index: 1;
+    position: absolute;
+    width: 175px;
+    height: 55px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+    border: 1px solid black;
+    border-radius: 2%/5%;
+  }
+
+  .single-color {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 20%;
+    cursor: pointer;
+    height: 20px;
+    width: 25px;
+    margin: 2px 2px;
+    opacity: 0.8;
+  }
+  
+  .single-color:hover {
+    opacity: 1;
+  }
