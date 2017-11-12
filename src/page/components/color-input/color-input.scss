@@ -1,0 +1,17 @@
+.color-input {
+    background-color: aliceblue;
+    border: 0px solid;
+    display:flex;
+    font-size: 40px;
+    letter-spacing: 2px;
+    text-align: center;
+    height: 50px;
+  }
+  
+  .color-input:focus {
+    outline: none;
+  }
+  
+  .color-input::selection {
+    background: #cce7ff;
+  }
