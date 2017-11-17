@@ -1,6 +1,32 @@
 # Resistro
 
-## Set-up
-Go into the Resistro dir and run `sudo npm install`
+## About
 
-The project is served on `localhost:8000`
+Resistro is a react webapp designed to calculate resistor colour codes using an interactive interface.
+
+![resistro](https://i.imgur.com/7dq735U.gifv "Resistro Demo")
+
+
+## Setup
+
+To setup the app, fork and/or clone the repo
+
+```
+git clone git@github.com:dylanpark/resistro.git
+```
+
+Next open the app and install node modules
+```
+cd resistro/
+npm i
+```
+
+To run resistro locally with hot-reloading
+```
+npm run start
+```
+
+To build resistro into the `dist` directory (prod builds minified file)
+```
+npm run build:(dev|prod)
+```
