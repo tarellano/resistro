@@ -21,7 +21,7 @@ cd resistro/
 npm i
 ```
 
-To run resistro locally with hot-reloading
+To run resistro locally with hot-reloading (will be served at http://localhost:8000/ )
 ```
 npm run start
 ```
