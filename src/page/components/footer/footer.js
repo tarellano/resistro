@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -24,12 +24,14 @@ class LinkList extends React.Component {
       <LinkItem key={text} text={text} link={url} />
     );
     
-    return [
-        <span class='copyright'> Copyright © Resistro 2017 </span>,
+    return (
+      <Fragment>
+        <span class='copyright'> Copyright © Resistro 2017 </span>
         <ul class='horizontal'>
           {linkItems}
         </ul>
-    ];
+      </Fragment>
+    );
   }
 }
 
